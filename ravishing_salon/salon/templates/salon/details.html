@@ -1,0 +1,31 @@
+{% extends 'salon/base.html'%}
+{%block title%} Salon Details {% endblock %}
+<div class="container">
+<div class="header clearfix">
+<div>
+
+{% block content %}
+<div class="container page-header hpad">
+	<div class="row">
+		<div class="col-md-2">
+		</div>
+		<div class="col-md-8 cent body">
+			
+			<h1>{{salon.name}}</h1>
+<p><b>Added On: </b>{{salon.date_created}} </p>
+<p><b>Address: </b>{{salon.address_1}}, {{salon.address_2}}, {{salon.address_3}}</br>
+				{{salon.state}}, {{salon.country}}	</p>
+
+<p><b>Contact Number: </b>{{salon.contact_number}}</p>
+<p><b>Email: </b>{{salon.email}}</p>
+<div style="padding-bottom: 20px">
+</div>
+<span class="btn btn-info" ><a href='{% url 'index' %}' style="color:white;"> Back to Home!</a></span>
+<span class="btn btn-success" ><a href='{% url 'gallery' salon.id %}' style="color:white;"> View Gallery!</a></span>
+<div style="padding-bottom: 20px">
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

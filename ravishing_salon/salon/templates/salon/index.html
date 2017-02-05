@@ -1,0 +1,53 @@
+{% extends 'salon/base.html'%}
+{% load staticfiles%}
+{% block content %}
+<div class="container page-header hpad">
+<div class="row">
+<div class="col-md-2">
+</div>
+<div class="col-md-8 cent body">
+
+<h1>   Salon Search </h1>
+<p> You can search by name or lacality or both! </p>
+<form method="GET" action="{% url 'index' %}">
+	<div class="form-inline">
+    <input type="text" name="name" title="Salon Name" placeholder="Salon Name" value="{{ request.GET.name }}" class="form-control">    <input type="text" name="locality" title="Locality" placeholder="Locality" value="{{ request.GET.locality}}" class="form-control">
+ 
+ 
+
+
+<button class="btn btn-default" type="submit" value="Search" >Search </button>
+<button class="btn btn-default" type="submit" value="View All" name="all"> View All </button>
+<span class="btn btn-success" ><a href="{% url 'upload_form' %}" style="color:white;"> Add a Salon</a></span>
+	
+	<br/>
+</div>
+</form>
+
+{%if count == -1%}
+<p><em>Enter a search criteria or click View All to see every salon </em></p>	
+{% elif count == 0 %}
+<h4> No Result Found </h4>		
+{% else %}
+
+<ul class="posts ">
+{% for i in result%}
+<li class="post post-content"> 
+<div class="UpperTitle">
+{{forloop.counter}}.   
+<a href="{% url 'details' i.id %}">{{i.name}}</a>
+<p style="text-align: right;">(Added: {{i.date_created|date}})</p>
+</div>
+</li>
+
+{% endfor %}
+</br>
+<p> -- {{count}} record(s) found --</p>
+
+{% endif %}
+	
+</div>
+</div>
+</div>
+
+{% endblock %}

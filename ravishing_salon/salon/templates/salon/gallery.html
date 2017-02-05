@@ -1,0 +1,73 @@
+{% extends 'salon/base.html'%}
+{%block title%} Salon Gallery {% endblock %}
+<div class="container">
+    <div class="header clearfix">
+        <div>
+
+        {% block content %}
+
+            <div class="container page-header hpad">
+	           <div class="row">
+		            <div class="col-md-2">
+		            </div>
+                    <div class="col-md-8 cent body">
+
+                    <h1>   Gallery </h1>
+                    <form method="POST" action="" enctype="multipart/form-data" class="form-horizontal">
+                         {% csrf_token %}
+                        {% for field in form %}
+
+    
+                            {% if field.label == 'Is cover photo' %}
+                    <div class="checkbox">
+                        <label> <input type="checkbox"> {{field.label}}</label>
+        
+
+                    </div>
+    
+                            {%else%}
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">{{field.label}} : </label>
+                            <div class="col-sm-6">
+                                 {{ field }}
+
+                            </div>
+                    </div>
+                            {%endif%}
+                        {% endfor %}
+                            </br>
+                    <input type="submit" class="btn btn-success" value="Upload" />
+                    {% if form.errors %}
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                     </div>
+                        {% endfor %}
+                    {% endif %}
+                    </form>	
+                        <br/>
+
+                    {%if not photos%}
+                        <h4> No photos uploaded </h4>
+                    {% else %}
+                        <ul>
+                        {% for i in photos%}
+                        <a href="{{i.image.url}}"><img src="{{i.image.url}}" height="200px" width="200px" class="img-circle"/><a><br/>
+                                <h4>{{i.title}}</h4>
+                                <br/>
+                            <br/>
+                            {% endfor %}
+                    {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
